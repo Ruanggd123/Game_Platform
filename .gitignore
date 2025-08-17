@@ -1,0 +1,6 @@
+# Ignorar arquivos .bat específicos
+run.bat
+
+# Ignorar pastas __pycache__ em qualquer diretório
+__pycache__/
+
