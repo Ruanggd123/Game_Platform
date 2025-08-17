@@ -2,9 +2,6 @@
 
 `Forest Adventure` é um jogo de plataforma 2D desenvolvido em Python com a biblioteca Pygame Zero. O jogador controla um herói que deve derrotar inimigos em uma floresta misteriosa para avançar por diferentes fases.
 
-![Gameplay Demo](https://i.imgur.com/your-gameplay.gif)
-_(Sugestão: grave um GIF do seu jogo, faça upload em um site como o [Imgur](https://imgur.com/) e substitua o link acima para tornar o README mais atraente)_
-
 ## 📜 Sobre o Jogo
 
 Este projeto foi desenvolvido como uma demonstração de habilidades em Python e na criação de jogos, seguindo um conjunto específico de requisitos técnicos. O jogo apresenta mecânicas clássicas de plataforma, incluindo movimentação lateral, pulos, combate com projéteis e inimigos com comportamento de patrulha e perseguição.
