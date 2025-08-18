@@ -88,7 +88,7 @@ def draw_world():
     for tile in ground_tiles: tile.draw()
     player.custom_draw()
     for e in enemies: e.custom_draw()
-
+    
 def draw():
     screen.clear()
     if game_state == "menu":
@@ -99,6 +99,7 @@ def draw():
         screen.draw.text(f"Music: {'ON' if is_music_enabled else 'OFF'}", center=music_button.center, color="white")
         screen.draw.filled_rect(exit_button, "darkred")
         screen.draw.text("Exit", center=exit_button.center, color="white")
+        screen.draw.text("Press 'K' to shoot", center=(700,580 ), color="white", fontsize=30)
     else:
         draw_world()
         if game_state == "paused":
@@ -124,6 +125,8 @@ def update():
     player.handle_input(keyboard, sounds)
     player.update_physics(GROUND_LEVEL, GRAVITY)
     player.update_animation()
+    player.wrap_x_with_hitbox(WIDTH)
+
 
     for p in player_projectiles[:]:
         p.update()

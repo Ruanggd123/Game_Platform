@@ -28,12 +28,19 @@ class Character(Actor):
     def update_physics(self, ground_level, gravity):
         self.vy += gravity
         self.y += self.vy
+        if self.hitbox:
+            self.update_hitbox_position()
         if self.hitbox and self.hitbox.bottom > ground_level:
-            self.y -= self.hitbox.bottom - ground_level
+            overlap = self.hitbox.bottom - ground_level
+            self.y -= overlap
+            self.update_hitbox_position()
             self.vy = 0
             self.is_on_ground = True
-        if self.invulnerability_timer > 0: self.invulnerability_timer -= 1
-        self.update_hitbox_position()
+
+        if self.invulnerability_timer > 0:
+            self.invulnerability_timer -= 1
+        if self.hitbox:
+            self.update_hitbox_position()
 
     def update_hitbox_position(self): pass
 
@@ -57,6 +64,15 @@ class Character(Actor):
         return False
 
 class Player(Character):
+    def wrap_x_with_hitbox(self, screen_width):
+        hb = self.hitbox
+        half_w = hb.width / 2
+        if hb.left > screen_width:
+            self.x = -half_w
+        elif hb.right < 0:
+            self.x = screen_width + half_w
+        hb.centerx = self.x
+
     def __init__(self, pos, subfolder=None):
         super().__init__("player", pos, subfolder=subfolder, health=5)
         self.jump_strength = -16
@@ -74,8 +90,6 @@ class Player(Character):
 
     def handle_input(self, keyboard, sounds=None):
         moving = False
-
-        #Define a velocidade de movimento. Um pouco maior no ar para um pulo mais longo.
         move_speed = 5 if not self.is_on_ground else 4
 
         if keyboard.a:
